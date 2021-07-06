@@ -25,8 +25,8 @@ public class Utente {
     @JoinColumn(name = "ruolo", nullable = false)
     private TipologiaUtente ruolo;
 
-/*    @OneToMany(mappedBy = "utente")
-    private Set<Prenotazioni> prenotazioni;*/
+    @OneToMany(mappedBy = "utente")
+    private Set<Prenotazioni> prenotazioni;
 
     public Utente(){}
 
@@ -87,14 +87,13 @@ public class Utente {
         this.ruolo = ruolo;
     }
 
-    /*public Set<Prenotazioni> getPrenotazioni() {
+    public Set<Prenotazioni> getPrenotazioni() {
         return prenotazioni;
     }
 
     public void setPrenotazioni(Set<Prenotazioni> prenotazioni) {
         this.prenotazioni = prenotazioni;
     }
-*/
     @Override
     public String toString() {
         return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", data di nascita=" + this.getDatadinascita() + ", ruolo=" + this.getRuolo() + "]";
