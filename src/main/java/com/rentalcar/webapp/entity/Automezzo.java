@@ -29,7 +29,7 @@ public class Automezzo {
     private TipologiaAutomezzo categoria;
 
     @OneToMany(mappedBy = "automezzo")
-    Set<Prenotazioni> prenotazioni;
+    private Set<Prenotazioni> prenotazioni;
 
     public Automezzo() {
     }

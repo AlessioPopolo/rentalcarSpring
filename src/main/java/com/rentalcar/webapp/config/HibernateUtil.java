@@ -1,6 +1,5 @@
 package com.rentalcar.webapp.config;
 
-import com.rentalcar.webapp.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -19,21 +18,17 @@ public class HibernateUtil {
     private ApplicationContext context;
 
     @Bean
-    public LocalSessionFactoryBean getSessionFactory() {
+    public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
-        factoryBean.setAnnotatedClasses(Utente.class);
-        factoryBean.setAnnotatedClasses(TipologiaUtente.class);
-        factoryBean.setAnnotatedClasses(Automezzo.class);
-        factoryBean.setAnnotatedClasses(TipologiaAutomezzo.class);
-        factoryBean.setAnnotatedClasses(Prenotazioni.class);
+        factoryBean.setPackagesToScan("com.rentalcar.webapp.entity");
         return factoryBean;
     }
 
     @Bean
     public HibernateTransactionManager getTransactionManager() {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(getSessionFactory().getObject());
+        transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
     }
 
