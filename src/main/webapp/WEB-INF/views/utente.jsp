@@ -1,4 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!doctype html>
 <html>
 <head>
@@ -10,22 +13,43 @@
 <body>
     <div class="container-fluid">
         <h2>Users List</h2>
+
+        <a href="<spring:url value='/utente/addCustomer' /> " class="btn btn-success">New Customer</a>
+
         <table class="table">
             <thead>
                 <tr>
-                    <td><strong>ID</strong></td>
-                    <td><strong>Nome</strong></td>
-                    <td><strong>Cognome</strong></td>
-                    <td><strong>Data di nascita</strong></td>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Data di nascita</th>
+                    <th>Ruolo</th>
+                    <th>Azioni</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach items="${utenti}" var="user">
                     <tr>
                         <td>${user.id}</td>
+
                         <td>${user.nome}</td>
+
                         <td>${user.cognome}</td>
-                        <td>${user.datadinascita}</td>
+
+                        <td><fmt:formatDate value="${user.datadinascita}" type="date" pattern="dd-MM-yyyy"/></td>
+
+                        <td>${user.ruolo}</td>
+
+                        <td class="form-inline">
+                            <form:form method="GET" action="">
+                                <input type="submit" class="btn btn-primary" value="UPDATE"/>
+                            </form:form>
+                            <form:form method="POST" action="">
+                                <button type="submit" class="btn btn-danger">
+                                    Delete
+                                </button>
+                            </form:form>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>

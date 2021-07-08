@@ -1,7 +1,10 @@
 package com.rentalcar.webapp.dao;
 
+import com.rentalcar.webapp.config.HibernateUtil;
 import com.rentalcar.webapp.entity.Utente;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +19,8 @@ public class UtenteDaoImpl implements UtenteDao{
 
     @Override
     public List<Utente> getAllCustomers() {
-        return null;
+        TypedQuery<Utente> query = sessionFactory.getCurrentSession().createQuery("FROM Utente WHERE ruolo.ruolo='customer' ORDER BY id");
+        return query.getResultList();
     }
 
     @Override
@@ -37,7 +41,8 @@ public class UtenteDaoImpl implements UtenteDao{
 
     @Override
     public void save(Utente theCustomer) {
-
+        Session session = this.sessionFactory.getCurrentSession();
+        session.persist(theCustomer);
     }
 
     @Override

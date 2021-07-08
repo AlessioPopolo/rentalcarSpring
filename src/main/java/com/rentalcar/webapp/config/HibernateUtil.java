@@ -18,7 +18,7 @@ public class HibernateUtil {
     private ApplicationContext context;
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory() {
+    public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
         factoryBean.setPackagesToScan("com.rentalcar.webapp.entity");
@@ -28,7 +28,7 @@ public class HibernateUtil {
     @Bean
     public HibernateTransactionManager getTransactionManager() {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory().getObject());
+        transactionManager.setSessionFactory(getSessionFactory().getObject());
         return transactionManager;
     }
 
