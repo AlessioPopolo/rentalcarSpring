@@ -40,7 +40,8 @@ public class UtenteDaoImpl implements UtenteDao{
     @Override
     public void save(Utente theCustomer) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.persist(theCustomer);
+        session.save(theCustomer);
+        session.flush();
     }
 
     @Override

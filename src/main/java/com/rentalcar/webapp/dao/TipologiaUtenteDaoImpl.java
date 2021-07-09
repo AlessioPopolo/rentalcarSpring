@@ -22,6 +22,6 @@ public class TipologiaUtenteDaoImpl implements TipologiaUtenteDao {
 
     @Override
     public TipologiaUtente getRuolo(String mioRuolo) {
-        return null; //TODO
+        return null;
     }
 }

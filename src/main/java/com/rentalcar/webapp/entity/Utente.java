@@ -1,5 +1,7 @@
 package com.rentalcar.webapp.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -18,6 +20,7 @@ public class Utente {
     @Column(name = "cognome")
     private String cognome;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column(name = "datadinascita")
     private Date datadinascita;
 
