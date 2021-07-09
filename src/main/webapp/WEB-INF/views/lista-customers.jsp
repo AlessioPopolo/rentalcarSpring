@@ -16,6 +16,8 @@
 
         <a href="<spring:url value='/utente/addCustomer' /> " class="btn btn-success">New Customer</a>
 
+        <a href="<spring:url value='/auto' /> " class="btn btn-success">Parco auto</a>
+
         <table class="table">
             <thead>
                 <tr>
