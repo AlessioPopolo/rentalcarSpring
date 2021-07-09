@@ -50,6 +50,10 @@ public class UtenteDaoImpl implements UtenteDao{
 
     @Override
     public void delete(Long id) {
-
+        Session session = this.sessionFactory.getCurrentSession();
+        Utente utente = session.load(Utente.class,id);
+        session.delete(utente);
+        //This makes the pending delete to be done
+        session.flush() ;
     }
 }

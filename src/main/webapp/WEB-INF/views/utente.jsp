@@ -44,8 +44,8 @@
                             <form:form method="GET" action="">
                                 <input type="submit" class="btn btn-primary" value="UPDATE"/>
                             </form:form>
-                            <form:form method="POST" action="">
-                                <button type="submit" class="btn btn-danger">
+                            <form:form method="POST" action="/rentalcarSpring_war_exploded/utente/delete/${user.id}">
+                                <button type="submit" class="btn btn-danger" onclick="if (!(confirm('Vuoi eliminare questo venditore?'))) return false">
                                     Delete
                                 </button>
                             </form:form>
