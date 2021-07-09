@@ -22,7 +22,7 @@ public class Utente {
     private Date datadinascita;
 
     @ManyToOne
-    @JoinColumn(name = "ruolo", nullable = false)
+    @JoinColumn(name = "ruolo")
     private TipologiaUtente ruolo;
 
     @OneToMany(mappedBy = "utente")

@@ -1,6 +1,7 @@
 package com.rentalcar.webapp.controller;
 
 import com.rentalcar.webapp.entity.Utente;
+import com.rentalcar.webapp.service.TipologiaUtenteService;
 import com.rentalcar.webapp.service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class UtenteController {
     @Autowired
     private UtenteService utenteService;
 
+    @Autowired
+    private TipologiaUtenteService tipologiaUtenteService;
+
     @GetMapping("/")
     public String userForm(Locale locale, Model model){
         model.addAttribute("utenti", utenteService.getAllCustomers());
@@ -27,6 +31,7 @@ public class UtenteController {
     @RequestMapping(value = "utente/addCustomer")
     public String addCustomerForm(Locale locale, Model model){
         model.addAttribute("command", new Utente());
+        model.addAttribute("listaRuoli", tipologiaUtenteService.getAllTipologie());
         return "add-customer-form";
     }
 
