@@ -22,7 +22,7 @@ public class UtenteController {
     @GetMapping("/")
     public String userForm(Locale locale, Model model){
         model.addAttribute("utenti", utenteService.getAllCustomers());
-        return "utente";
+        return "lista-customers";
     }
 
     @RequestMapping(value = "utente/addCustomer")
@@ -37,7 +37,7 @@ public class UtenteController {
     public String addUtente(@ModelAttribute("utente") Utente p){
 
         this.utenteService.save(p);
-        return "redirect:/utente";
+        return "lista-customers";
 
     }
 

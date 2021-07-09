@@ -45,8 +45,6 @@ public class Utente {
         this.ruolo = ruolo;
     }
 
-
-
     public Long  getId() {
         return id;
     }
@@ -79,8 +77,8 @@ public class Utente {
         this.datadinascita = datadinascita;
     }
 
-    public String getRuolo() {
-        return ruolo.getRuolo();
+    public TipologiaUtente getRuolo() {
+        return ruolo;
     }
 
     public void setRuolo(TipologiaUtente ruolo) {

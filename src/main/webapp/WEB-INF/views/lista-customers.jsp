@@ -38,7 +38,7 @@
 
                         <td><fmt:formatDate value="${user.datadinascita}" type="date" pattern="dd-MM-yyyy"/></td>
 
-                        <td>${user.ruolo}</td>
+                        <td>${user.ruolo.ruolo}</td>
 
                         <td class="form-inline">
                             <form:form method="GET" action="">
