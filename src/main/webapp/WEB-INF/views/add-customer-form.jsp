@@ -15,33 +15,38 @@
 
       <c:url var="addAction" value="/utente/addCustomer/save"></c:url>
       <form:form action="${addAction}">
-          <div class="form">
+          <table class="table">
+            <tbody>
+                <tr>
+                    <td><label class="col-form-label" for="nome">Nome</label></td>
+                    <td><form:input id="nome" path="nome" type="text" class="form-control"/></td>
+                </tr>
 
-              <div class="form-group">
-                  <label <%--for="nome"--%>>Nome</label>
-                  <%--<form:input id="nome" path="nome" type="text" class="form-control"/>--%>
-              </div>
+                <tr>
+                    <td><label class="col-form-label" for="cognome">Cognome</label></td>
+                    <td><form:input id="cognome" path="cognome" type="text" class="form-control"/></td>
+                </tr>
 
-              <div class="form-group">
-                  <label <%--for="cognome"--%>>Nome</label>
-                  <%--<form:input id="cognome" path="cognome" type="text" class="form-control"/>--%>
-              </div>
+                <tr>
+                    <td><label class="col-form-label" for="datadinascita">Data di nascita</label></td>
+                    <td><form:input id="datadinascita" path="datadinascita" type="date" class="form-control"/></td>
+                </tr>
 
-              <div class="form-group">
-                  <label <%--for="datadinascita"--%>>Data di nascita</label>
-                  <%--<form:input id="datadinascita" path="datadinascita" type="date" class="form-control"/>--%>
-              </div>
+                <%--<tr>
+                    <td><label class="col-form-label" for="ruolo">Ruolo</label></td>
+                    <td><form:input id="ruolo" path="ruolo" type="text" class="form-control"/></td>
+                </tr>--%>
 
-              <div class="form-group">
-                  <label <%--for="ruolo"--%>>Ruolo</label>
-                  <%--<form:input id="ruolo" path="ruolo" type="text" class="form-control" value="customer"/>--%>
-              </div>
+                <tr>
+                    <td><label></label></td>
+                    <td>
+                        <input type="submit" id="btnSave" class="btn btn-primary" value="Save"/>
+                        <button type="button" class="btn btn-danger" onclick="history.back()">Back</button>
+                    </td>
+                </tr>
 
-              <div class="form-actions">
-                  <input type="submit" id="btnSave" class="btn btn-success form-buttons" value="Save"/>
-                  <button type="button" class="btn btn-danger form-buttons" onclick="history.back()">Back</button>
-              </div>
-          </div>
+            </tbody>
+          </table>
       </form:form>
   </div>
 </body>

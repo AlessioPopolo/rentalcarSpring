@@ -26,6 +26,7 @@ public class UtenteController {
 
     @RequestMapping(value = "utente/addCustomer")
     public String addCustomerForm(Locale locale, Model model){
+        model.addAttribute("command", new Utente());
         return "add-customer-form";
     }
 
