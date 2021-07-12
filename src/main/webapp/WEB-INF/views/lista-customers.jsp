@@ -42,8 +42,8 @@
 
                         <td>${user.ruolo.ruolo}</td>
 
-                        <td class="form-inline">
-                            <form:form method="POST" action="/rentalcarSpring_war_exploded/utente/updateCustomer/${user.id}">
+                        <td class="input-group">
+                            <form:form method="POST" action="/rentalcarSpring_war_exploded/utente/updateCustomer/${user.id}" cssClass="me-2">
                                 <input type="submit" class="btn btn-primary" value="UPDATE"/>
                             </form:form>
                             <form:form method="POST" action="/rentalcarSpring_war_exploded/utente/delete/${user.id}">

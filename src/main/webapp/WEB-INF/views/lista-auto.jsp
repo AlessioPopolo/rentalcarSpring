@@ -43,8 +43,8 @@
 
           <td>${tempAuto.categoria.categoria}</td>
 
-          <td class="form-inline">
-            <form:form method="GET" action="">
+          <td class="input-group">
+            <form:form method="GET" action="" cssClass="me-2">
               <input type="submit" class="btn btn-primary" value="UPDATE"/>
             </form:form>
             <form:form method="POST" action="/rentalcarSpring_war_exploded/auto/delete/${tempAuto.id}">
