@@ -18,11 +18,13 @@ public class TipologiaAutoDaoImpl implements TipologiaAutoDao {
 
     @Override
     public List<TipologiaAutomezzo> getAllTipologie() {
-        return null;
+        TypedQuery<TipologiaAutomezzo> query = sessionFactory.getCurrentSession().createQuery("FROM TipologiaAutomezzo ORDER BY id");
+        return query.getResultList();
     }
 
     @Override
     public TipologiaAutomezzo getCategoria(String categoria) {
-        return null;
+        TypedQuery<TipologiaAutomezzo> query = sessionFactory.getCurrentSession().createQuery("FROM TipologiaAutomezzo WHERE categoria = '" + categoria + "'");
+        return query.getSingleResult();
     }
 }

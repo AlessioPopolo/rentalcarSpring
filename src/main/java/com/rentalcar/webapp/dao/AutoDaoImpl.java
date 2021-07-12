@@ -35,7 +35,9 @@ public class AutoDaoImpl implements AutoDao{
 
     @Override
     public void save(Automezzo automezzo) {
-
+        Session session = this.sessionFactory.getCurrentSession();
+        session.save(automezzo);
+        session.flush();
     }
 
     @Override

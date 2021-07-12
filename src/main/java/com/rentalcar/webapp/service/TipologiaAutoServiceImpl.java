@@ -1,5 +1,6 @@
 package com.rentalcar.webapp.service;
 
+import com.rentalcar.webapp.dao.TipologiaAutoDao;
 import com.rentalcar.webapp.dao.TipologiaUtenteDao;
 import com.rentalcar.webapp.entity.TipologiaAutomezzo;
 import com.rentalcar.webapp.entity.TipologiaUtente;
@@ -14,15 +15,15 @@ import java.util.List;
 public class TipologiaAutoServiceImpl implements TipologiaAutoService{
 
     @Autowired
-    private TipologiaUtenteDao tipologiaUtenteDao;
+    private TipologiaAutoDao tipologiaAutoDao;
 
     @Override
     public List<TipologiaAutomezzo> getAllTipologie() {
-        return null;
+        return tipologiaAutoDao.getAllTipologie();
     }
 
     @Override
     public TipologiaAutomezzo getCategoria(String categoria) {
-        return null;
+        return tipologiaAutoDao.getCategoria(categoria);
     }
 }
