@@ -1,5 +1,6 @@
 package com.rentalcar.webapp.controller;
 
+import com.rentalcar.webapp.entity.TipologiaUtente;
 import com.rentalcar.webapp.entity.Utente;
 import com.rentalcar.webapp.service.TipologiaUtenteService;
 import com.rentalcar.webapp.service.UtenteService;
@@ -32,12 +33,12 @@ public class UtenteController {
         return "add-customer-form";
     }
 
-    //For add and update person both
     @RequestMapping(value= "/utente/addCustomer/save", method = RequestMethod.POST)
     public String addUtente(@ModelAttribute("utente") Utente p){
-
-        this.utenteService.save(p);
-        return "lista-customers";
+        TipologiaUtente mioRuolo = this.tipologiaUtenteService.getRuolo(p.getRuolo().getRuolo());
+        Utente nuovoUtente = new Utente(p.getNome(), p.getCognome(), p.getDatadinascita(), mioRuolo);
+        this.utenteService.save(nuovoUtente);
+        return "redirect:/";
 
     }
 

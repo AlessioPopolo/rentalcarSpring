@@ -22,6 +22,7 @@ public class TipologiaUtenteDaoImpl implements TipologiaUtenteDao {
 
     @Override
     public TipologiaUtente getRuolo(String mioRuolo) {
-        return null;
+        TypedQuery<TipologiaUtente> query = sessionFactory.getCurrentSession().createQuery("FROM TipologiaUtente WHERE ruolo = '" + mioRuolo + "'");
+        return query.getSingleResult();
     }
 }

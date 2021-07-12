@@ -32,10 +32,10 @@
                     <td><form:input id="datadinascita" path="datadinascita" type="date" class="form-control"/></td>
                 </tr>
 
-                <tr>TODO sistemare ruolo
+                <tr>
                     <td><label class="col-form-label" for="ruolo">Ruolo</label></td>
                     <td>
-                        <form:select id="ruolo" path="ruolo" class="form-select" items="${listaRuoli}" itemLabel="ruolo" itemValue="id">
+                        <form:select id="ruolo" path="ruolo" class="form-select" items="${listaRuoli}" itemLabel="ruolo" itemValue="ruolo">
                         </form:select>
                     </td>
                 </tr>
