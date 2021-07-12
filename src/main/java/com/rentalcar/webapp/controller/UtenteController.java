@@ -33,11 +33,30 @@ public class UtenteController {
         return "add-customer-form";
     }
 
+    @PostMapping(value = "/utente/updateCustomer/{userId}")
+    public String updateCustomerForm(@PathVariable("userId") String customerId, Locale locale, Model model){
+        Long id = Long.parseLong(customerId);
+        model.addAttribute("command", new Utente());
+        model.addAttribute("listaRuoli", tipologiaUtenteService.getAllTipologie());
+        model.addAttribute("updateUtente", utenteService.getCustomer(id));
+        return "update-customer-form";
+    }
+
     @RequestMapping(value= "/utente/addCustomer/save", method = RequestMethod.POST)
     public String addUtente(@ModelAttribute("utente") Utente p){
+
         TipologiaUtente mioRuolo = this.tipologiaUtenteService.getRuolo(p.getRuolo().getRuolo());
-        Utente nuovoUtente = new Utente(p.getNome(), p.getCognome(), p.getDatadinascita(), mioRuolo);
-        this.utenteService.save(nuovoUtente);
+        Utente nuovoUtente;
+        if (p.getId()== null){
+            nuovoUtente = new Utente(p.getNome(), p.getCognome(), p.getDatadinascita(), mioRuolo);
+            this.utenteService.save(nuovoUtente);
+        }
+        else {
+            nuovoUtente = new Utente(p.getId(), p.getNome(), p.getCognome(), p.getDatadinascita(), mioRuolo);
+            this.utenteService.update(nuovoUtente);
+        }
+
+
         return "redirect:/";
 
     }

@@ -43,7 +43,7 @@
                         <td>${user.ruolo.ruolo}</td>
 
                         <td class="form-inline">
-                            <form:form method="GET" action="">
+                            <form:form method="POST" action="/rentalcarSpring_war_exploded/utente/updateCustomer/${user.id}">
                                 <input type="submit" class="btn btn-primary" value="UPDATE"/>
                             </form:form>
                             <form:form method="POST" action="/rentalcarSpring_war_exploded/utente/delete/${user.id}">

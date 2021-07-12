@@ -1,5 +1,6 @@
 package com.rentalcar.webapp.dao;
 
+import com.rentalcar.webapp.entity.TipologiaUtente;
 import com.rentalcar.webapp.entity.Utente;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,7 +30,8 @@ public class UtenteDaoImpl implements UtenteDao{
 
     @Override
     public Utente getCustomer(Long id) {
-        return null;
+        TypedQuery<Utente> query = sessionFactory.getCurrentSession().createQuery("FROM Utente WHERE id = '" + id + "'");
+        return query.getSingleResult();
     }
 
     @Override
@@ -46,7 +48,9 @@ public class UtenteDaoImpl implements UtenteDao{
 
     @Override
     public void update(Utente theCustomer) {
-
+        Session session = this.sessionFactory.getCurrentSession();
+        session.update(theCustomer);
+        session.flush();
     }
 
     @Override
