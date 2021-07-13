@@ -47,7 +47,12 @@ public class PrenotazioniController {
         model.addAttribute("command", new Prenotazioni());
         model.addAttribute("updatePrenotazione", prenotazioniService.getPrenotazione(id));
         model.addAttribute("listaAutoCategoria", autoService.getAllAutoFromCategoria(categoria));
-        return "update-prenotazione-form";
+        if (prenotazioniService.checkDatePrenotazione(prenotazioniService.getPrenotazione(id).getStartdate())){
+            return "update-prenotazione-form";
+        }
+        else{
+            return "redirect:/prenotazioni/visualizza/" + prenotazioniService.getPrenotazione(id).getUtente().getId();
+        }
     }
 
     @RequestMapping(value= "/prenotazioni/addPrenotazione/save", method = RequestMethod.POST)
