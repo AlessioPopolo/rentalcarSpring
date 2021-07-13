@@ -30,7 +30,8 @@ public class AutoDaoImpl implements AutoDao{
 
     @Override
     public Automezzo getAutomezzo(Long id) {
-        return null;
+        TypedQuery<Automezzo> query = sessionFactory.getCurrentSession().createQuery("FROM Automezzo WHERE id = '" + id + "'");
+        return query.getSingleResult();
     }
 
     @Override
@@ -42,11 +43,17 @@ public class AutoDaoImpl implements AutoDao{
 
     @Override
     public void update(Automezzo automezzo) {
-
+        Session session = this.sessionFactory.getCurrentSession();
+        session.update(automezzo);
+        session.flush();
     }
 
     @Override
     public void delete(Long id) {
-
+        Session session = this.sessionFactory.getCurrentSession();
+        Automezzo automezzo = session.load(Automezzo.class,id);
+        session.delete(automezzo);
+        //This makes the pending delete to be done
+        session.flush() ;
     }
 }

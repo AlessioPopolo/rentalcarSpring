@@ -42,7 +42,7 @@
                             <c:forEach items="${listaRuoli}" var="ruoli" varStatus="status">
                                 <c:choose>
                                     <c:when test="${ruoli.ruolo eq updateUtente.ruolo.ruolo}">
-                                        <option value="${ruoli.ruolo}" selected="true">${ruoli.ruolo}</option>
+                                        <option value="${ruoli.ruolo}" selected="selected">${ruoli.ruolo}</option>
                                     </c:when>
                                     <c:otherwise>
                                         <option value="${ruoli.ruolo}">${ruoli.ruolo}</option>

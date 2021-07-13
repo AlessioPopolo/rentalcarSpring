@@ -51,9 +51,23 @@ public class AutoController {
             this.autoService.update(nuovoAutomezzo);
         }
 
-
         return "redirect:/auto";
+    }
 
+    @PostMapping("/auto/delete/{autoId}")
+    private String deleteAuto(@PathVariable("autoId") String autoId) {
+        Long id = Long.parseLong(autoId);
+        autoService.delete(id);
+        return "redirect:/auto";
+    }
+
+    @PostMapping(value = "/auto/updateAuto/{autoId}")
+    public String updateAutoForm(@PathVariable("autoId") String autoId, Locale locale, Model model){
+        Long id = Long.parseLong(autoId);
+        model.addAttribute("command", new Automezzo());
+        model.addAttribute("listaCategorie", tipologiaAutoService.getAllTipologie());
+        model.addAttribute("updateAuto", autoService.getAutomezzo(id));
+        return "update-auto-form";
     }
 
 }
