@@ -15,6 +15,28 @@
   <header id="header" class="header-panel">
     <jsp:include page="../layouts/template/header.jsp"></jsp:include>
   </header>
+  <div class="container-fluid">
+    <form:form method="get" action="/auto/search/">
+      <div class="row row-cols-2 mb-3">
+        <div class="col">
+          <label class="form-label">Cerca auto per categoria:</label>
+        </div>
+        <div class="col"></div>
+
+        <div class="col">
+          <select class="form-select" name="searchAuto">
+            <option value="all">Tutte le categorie</option>
+            <c:forEach var="tempCategoria" items="${listaCategorie}">
+              <option value="${tempCategoria.categoria}" >${tempCategoria.categoria}</option>
+            </c:forEach>
+          </select>
+        </div>
+        <div class="col">
+          <input type="submit" value="search" class="btn btn-secondary" />
+        </div>
+      </div>
+    </form:form>
+  </div>
 
   <div class="container-fluid">
     <h2>Auto List</h2>

@@ -27,6 +27,7 @@ public class AutoController {
     @GetMapping("/auto")
     public String userForm(Locale locale, Model model){
         model.addAttribute("auto", autoService.getAllAutomezzi());
+        model.addAttribute("listaCategorie", tipologiaAutoService.getAllTipologie());
         return "lista-auto";
     }
 
@@ -68,6 +69,13 @@ public class AutoController {
         model.addAttribute("listaCategorie", tipologiaAutoService.getAllTipologie());
         model.addAttribute("updateAuto", autoService.getAutomezzo(id));
         return "update-auto-form";
+    }
+
+    @GetMapping(value = "/auto/search/")
+    public String searchCustomers(@RequestParam (value = "searchAuto") String search, Model model){
+        model.addAttribute("auto", autoService.getAllAutoFromCategoria(search));
+        model.addAttribute("listaCategorie", tipologiaAutoService.getAllTipologie());
+        return "lista-auto";
     }
 
 }

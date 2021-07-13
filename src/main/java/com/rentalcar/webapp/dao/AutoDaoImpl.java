@@ -25,6 +25,10 @@ public class AutoDaoImpl implements AutoDao{
 
     @Override
     public List<Automezzo> getAllAutoFromCategoria(String categoria) {
+        if (categoria.equals("all")){
+            TypedQuery<Automezzo> query = sessionFactory.getCurrentSession().createQuery("FROM Automezzo ORDER BY id");
+            return query.getResultList();
+        }
         TypedQuery<Automezzo> query = sessionFactory.getCurrentSession().createQuery("FROM Automezzo WHERE categoria.categoria = '" + categoria + "' ORDER BY id");
         return query.getResultList();
     }
