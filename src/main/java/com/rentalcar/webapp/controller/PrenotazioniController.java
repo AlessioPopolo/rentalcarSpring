@@ -57,7 +57,8 @@ public class PrenotazioniController {
         Prenotazioni prenotazione;
 
         if (p.getId()==null){
-
+            prenotazione = new Prenotazioni(utente, automezzo, p.getStartdate(), p.getEnddate());
+            this.prenotazioniService.save(prenotazione);
         }
         else {
             prenotazione = new Prenotazioni(p.getId(), utente, automezzo, p.getStartdate(), p.getEnddate());
