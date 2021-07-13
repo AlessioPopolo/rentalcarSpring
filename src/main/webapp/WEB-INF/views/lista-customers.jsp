@@ -20,10 +20,6 @@
 
         <a href="<spring:url value='/utente/addCustomer' /> " class="btn btn-success">New Customer</a>
 
-<%--
-        <a href="<spring:url value='/auto' /> " class="btn btn-success">Parco auto</a>
---%>
-
         <table class="table">
             <thead>
                 <tr>
@@ -33,6 +29,7 @@
                     <th>Data di nascita</th>
                     <th>Ruolo</th>
                     <th>Azioni</th>
+                    <th>Prenotazioni</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,13 +46,18 @@
                         <td>${user.ruolo.ruolo}</td>
 
                         <td class="input-group">
-                            <form:form method="POST" action="/rentalcarSpring_war_exploded/utente/updateCustomer/${user.id}" cssClass="me-2">
+                            <form:form method="POST" action="/utente/updateCustomer/${user.id}" cssClass="me-2">
                                 <input type="submit" class="btn btn-primary" value="UPDATE"/>
                             </form:form>
-                            <form:form method="POST" action="/rentalcarSpring_war_exploded/utente/delete/${user.id}">
+                            <form:form method="POST" action="/utente/delete/${user.id}">
                                 <button type="submit" class="btn btn-danger" onclick="if (!(confirm('Vuoi eliminare questo venditore?'))) return false">
                                     Delete
                                 </button>
+                            </form:form>
+                        </td>
+                        <td>
+                            <form:form method="POST" action="/prenotazioni/visualizza/${user.id}">
+                                <input type="submit" class="btn btn-success" value="Visualizza prenotazioni"/>
                             </form:form>
                         </td>
                     </tr>

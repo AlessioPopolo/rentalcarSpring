@@ -49,10 +49,10 @@
           <td>${tempAuto.categoria.categoria}</td>
 
           <td class="input-group">
-            <form:form method="POST" action="/rentalcarSpring_war_exploded/auto/updateAuto/${tempAuto.id}" cssClass="me-2">
+            <form:form method="POST" action="/auto/updateAuto/${tempAuto.id}" cssClass="me-2">
               <input type="submit" class="btn btn-primary" value="UPDATE"/>
             </form:form>
-            <form:form method="POST" action="/rentalcarSpring_war_exploded/auto/delete/${tempAuto.id}">
+            <form:form method="POST" action="/auto/delete/${tempAuto.id}">
               <button type="submit" class="btn btn-danger" onclick="if (!(confirm('Vuoi eliminare questo automezzo?'))) return false">
                 Delete
               </button>
