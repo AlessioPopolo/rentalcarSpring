@@ -11,12 +11,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
+    <header id="header" class="header-panel">
+        <jsp:include page="../layouts/template/header.jsp"></jsp:include>
+    </header>
+
     <div class="container-fluid">
         <h2>Users List</h2>
 
         <a href="<spring:url value='/utente/addCustomer' /> " class="btn btn-success">New Customer</a>
 
+<%--
         <a href="<spring:url value='/auto' /> " class="btn btn-success">Parco auto</a>
+--%>
 
         <table class="table">
             <thead>

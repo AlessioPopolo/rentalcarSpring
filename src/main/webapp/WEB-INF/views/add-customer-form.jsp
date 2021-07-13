@@ -10,6 +10,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
+    <header id="header" class="header-panel">
+        <jsp:include page="../layouts/template/header.jsp"></jsp:include>
+    </header>
+
   <div class="container-fluid">
       <h2>Aggiungi utente</h2>
 
