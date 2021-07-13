@@ -4,6 +4,7 @@ import com.rentalcar.webapp.entity.TipologiaUtente;
 import com.rentalcar.webapp.entity.Utente;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -36,7 +37,14 @@ public class UtenteDaoImpl implements UtenteDao{
 
     @Override
     public List<Utente> searchCustomers(String theSearchName) {
-        return null;
+        TypedQuery<Utente> query;
+        if (theSearchName != null && theSearchName.trim().length() > 0) {
+            query = sessionFactory.getCurrentSession().createQuery("FROM Utente WHERE (nome like '%" + theSearchName + "%' OR cognome like '%" + theSearchName + "%') AND ruolo.ruolo = 'customer' ORDER BY id");
+        }
+        else {
+            query = sessionFactory.getCurrentSession().createQuery("FROM Utente WHERE ruolo.ruolo='customer' ORDER BY id");
+        }
+        return query.getResultList();
     }
 
     @Override

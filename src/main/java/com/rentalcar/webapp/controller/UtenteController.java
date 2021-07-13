@@ -55,8 +55,6 @@ public class UtenteController {
             nuovoUtente = new Utente(p.getId(), p.getNome(), p.getCognome(), p.getDatadinascita(), mioRuolo);
             this.utenteService.update(nuovoUtente);
         }
-
-
         return "redirect:/";
 
     }
@@ -66,6 +64,12 @@ public class UtenteController {
         Long id = Long.parseLong(customerId);
         utenteService.delete(id);
         return "redirect:/";
+    }
+
+    @GetMapping(value = "/utente/search/")
+    public String searchCustomers(@RequestParam (value = "theSearchName") String search, Model model){
+        model.addAttribute("utenti", utenteService.searchCustomers(search));
+        return "lista-customers";
     }
 
 }

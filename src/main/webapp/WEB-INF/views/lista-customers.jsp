@@ -14,6 +14,23 @@
     <header id="header" class="header-panel">
         <jsp:include page="../layouts/template/header.jsp"></jsp:include>
     </header>
+    <div class="container-fluid">
+        <form:form method="get" action="/utente/search/">
+            <div class="row row-cols-2 mb-3">
+                <div class="col">
+                    <label class="form-label">Cerca customers:</label>
+                </div>
+                <div class="col"></div>
+
+                <div class="col">
+                    <input class="form-control" type="text" name="theSearchName" />
+                </div>
+                <div class="col">
+                    <input type="submit" value="search" class="btn btn-secondary" />
+                </div>
+            </div>
+        </form:form>
+    </div>
 
     <div class="container-fluid">
         <h2>Users List</h2>
