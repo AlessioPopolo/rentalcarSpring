@@ -34,17 +34,21 @@
         <tr>
           <td>${tempPrenotazione.id}</td>
 
-          <td>${tempPrenotazione.automezzo}</td>
+          <td>
+              ${tempPrenotazione.automezzo.casacostruttrice} ${tempPrenotazione.automezzo.modello} ${tempPrenotazione.automezzo.categoria.categoria}
+              immatricolata nel
+              <fmt:formatDate value="${tempPrenotazione.automezzo.immatricolazione}" type="date" pattern="MM-yyyy"/>
+          </td>
 
           <td><fmt:formatDate value="${tempPrenotazione.startdate}" type="date" pattern="dd-MM-yyyy"/></td>
 
           <td><fmt:formatDate value="${tempPrenotazione.enddate}" type="date" pattern="dd-MM-yyyy"/></td>
 
           <td class="input-group">
-            <form:form method="POST" action="/prenotazioni/updatePrenotazione/${tempPrenotazione.id}" cssClass="me-2">
+            <form:form method="POST" action="/prenotazioni/updatePrenotazione/${tempPrenotazione.id}/${tempPrenotazione.automezzo.categoria.categoria}" cssClass="me-2">
               <input type="submit" class="btn btn-primary" value="UPDATE"/>
             </form:form>
-            <form:form method="POST" action="/prenotazioni/delete/${tempPrenotazione.id}">
+            <form:form method="POST" action="/prenotazioni/delete/${tempPrenotazione.id}/${userId}">
               <button type="submit" class="btn btn-danger" onclick="if (!(confirm('Vuoi eliminare questa prenotazione?'))) return false">
                 Delete
               </button>

@@ -19,4 +19,24 @@ public class PrenotazioniServiceImpl implements PrenotazioniService {
     public List<Prenotazioni> getPrenotazioniByUser(Long id) {
         return prenotazioniDao.getPrenotazioniByUser(id);
     }
+
+    @Override
+    public void save(Prenotazioni prenotazione) {
+        prenotazioniDao.save(prenotazione);
+    }
+
+    @Override
+    public void update(Prenotazioni prenotazione) {
+        prenotazioniDao.update(prenotazione);
+    }
+
+    @Override
+    public void delete(Long id) {
+        prenotazioniDao.delete(id);
+    }
+
+    @Override
+    public Prenotazioni getPrenotazione(Long id) {
+        return prenotazioniDao.getPrenotazione(id);
+    }
 }
