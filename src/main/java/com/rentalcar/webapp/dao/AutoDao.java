@@ -1,7 +1,6 @@
 package com.rentalcar.webapp.dao;
 
 import com.rentalcar.webapp.entity.Automezzo;
-import com.rentalcar.webapp.entity.Utente;
 
 import java.util.List;
 
