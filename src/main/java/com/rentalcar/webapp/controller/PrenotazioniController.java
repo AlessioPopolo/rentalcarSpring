@@ -55,6 +55,14 @@ public class PrenotazioniController {
         }
     }
 
+    @RequestMapping(value = "prenotazioni/addPrenotazione/{userId}")
+    public String addPrenotazioneForm(@PathVariable("userId") String userId, Locale locale, Model model){
+        model.addAttribute("command", new Prenotazioni());
+        model.addAttribute("userId", userId);
+        model.addAttribute("listaAuto", autoService.getAllAutomezzi());
+        return "add-prenotazione-form";
+    }
+
     @RequestMapping(value= "/prenotazioni/addPrenotazione/save", method = RequestMethod.POST)
     public String addPrenotazione(@ModelAttribute("prenotazione") Prenotazioni p){
         Utente utente = utenteService.getCustomer(p.getUtente().getId());

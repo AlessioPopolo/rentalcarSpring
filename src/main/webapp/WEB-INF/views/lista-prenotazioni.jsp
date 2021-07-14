@@ -19,6 +19,8 @@
   <div class="container-fluid">
     <h2>Prenotazioni List</h2>
 
+    <a href="<spring:url value='/prenotazioni/addPrenotazione/${userId}' /> " class="btn btn-success">New prenotazione</a>
+
     <table class="table">
       <thead>
       <tr>
