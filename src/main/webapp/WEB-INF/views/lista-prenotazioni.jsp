@@ -29,6 +29,7 @@
         <th>Inizio</th>
         <th>Fine</th>
         <th>Azioni</th>
+        <th>Approvazioni</th>
       </tr>
       </thead>
       <tbody>
@@ -46,16 +47,28 @@
 
           <td><fmt:formatDate value="${tempPrenotazione.enddate}" type="date" pattern="dd-MM-yyyy"/></td>
 
-          <td class="input-group">
-            <form:form method="POST" action="/prenotazioni/updatePrenotazione/${tempPrenotazione.id}/${tempPrenotazione.automezzo.categoria.categoria}" cssClass="me-2">
+          <td>
+            <form:form method="POST" action="/prenotazioni/updatePrenotazione/${tempPrenotazione.id}/${tempPrenotazione.automezzo.categoria.categoria}">
               <input type="submit" class="btn btn-primary" value="UPDATE"/>
             </form:form>
             <form:form method="POST" action="/prenotazioni/delete/${tempPrenotazione.id}/${userId}">
               <button type="submit" class="btn btn-danger" onclick="if (!(confirm('Vuoi eliminare questa prenotazione?'))) return false">
-                Delete
+                DELETE
               </button>
             </form:form>
           </td>
+
+          <td>
+            <form:form method="POST" action="/prenotazioni/approvePrenotazione/${tempPrenotazione.id}">
+              <input type="submit" class="btn btn-success" value="APPROVE"/>
+            </form:form>
+            <form:form method="POST" action="/prenotazioni/delete/${tempPrenotazione.id}/${userId}">
+              <button type="submit" class="btn btn-danger" onclick="if (!(confirm('Vuoi declinare questa prenotazione?'))) return false">
+                DECLINE
+              </button>
+            </form:form>
+          </td>
+
         </tr>
       </c:forEach>
       </tbody>
