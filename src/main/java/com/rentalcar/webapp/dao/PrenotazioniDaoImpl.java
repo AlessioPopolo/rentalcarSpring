@@ -1,14 +1,13 @@
 package com.rentalcar.webapp.dao;
 
-import com.rentalcar.webapp.entity.Automezzo;
 import com.rentalcar.webapp.entity.Prenotazioni;
-import com.rentalcar.webapp.entity.Utente;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -56,5 +55,20 @@ public class PrenotazioniDaoImpl implements PrenotazioniDao {
     public List<Prenotazioni> getAllPrenotazioni() {
         TypedQuery<Prenotazioni> query = sessionFactory.getCurrentSession().createQuery("FROM Prenotazioni ORDER BY startdate");
         return query.getResultList();
+    }
+
+    @Override
+    public boolean checkPrenotazioniSameDate(Long idPrenotazione, Long idAuto, Date start, Date end) {
+        TypedQuery<Prenotazioni> query;
+        if (idPrenotazione == null){
+            query = sessionFactory.getCurrentSession().createQuery("FROM Prenotazioni WHERE automezzo.id = '" + idAuto + "' AND EXISTS (FROM Prenotazioni where startdate <= '" + end + "' AND enddate >= '" + start + "')");
+        }
+        else {
+            query = sessionFactory.getCurrentSession().createQuery("FROM Prenotazioni WHERE automezzo.id = '" + idAuto + "' AND EXISTS (FROM Prenotazioni where startdate <= '" + end + "' AND enddate >= '" + start + "' AND id != '" + idPrenotazione + "')");
+        }
+        if (query.getResultList().isEmpty()){
+            return true;
+        }
+        return false;
     }
 }

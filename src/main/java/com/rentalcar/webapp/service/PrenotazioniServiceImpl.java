@@ -30,19 +30,21 @@ public class PrenotazioniServiceImpl implements PrenotazioniService {
 
     @Override
     public void save(Prenotazioni prenotazione) {
-        prenotazioniDao.save(prenotazione);
+        if (checkDataEndAfterDataStart(prenotazione) && checkAvailableVehicleInDatePrenotazione(prenotazione)){
+            prenotazioniDao.save(prenotazione);
+        }
     }
 
     @Override
     public void update(Prenotazioni prenotazione) {
-        if (checkDatePrenotazione(prenotazione.getStartdate())){
+        if (checkEditableOrDeletableBeforeXDaysPrenotazione(prenotazione.getStartdate()) && checkDataEndAfterDataStart(prenotazione) && checkAvailableVehicleInDatePrenotazione(prenotazione)){
             prenotazioniDao.update(prenotazione);
         }
     }
 
     @Override
     public void delete(Long id) {
-        if(checkDatePrenotazione(this.getPrenotazione(id).getStartdate())){
+        if(checkEditableOrDeletableBeforeXDaysPrenotazione(this.getPrenotazione(id).getStartdate())){
             prenotazioniDao.delete(id);
         }
     }
@@ -53,10 +55,25 @@ public class PrenotazioniServiceImpl implements PrenotazioniService {
     }
 
     @Override
-    public boolean checkDatePrenotazione(Date start) {
+    public boolean checkEditableOrDeletableBeforeXDaysPrenotazione(Date start) {
         LocalDateTime ldt = LocalDateTime.ofInstant(start.toInstant(), ZoneId.systemDefault()).minusDays(2);
         if (ldt.isAfter(LocalDateTime.now())){ return true;}
         else {return false;}
+    }
+
+    @Override
+    public boolean checkAvailableVehicleInDatePrenotazione(Prenotazioni prenotazione) {
+        return prenotazioniDao.checkPrenotazioniSameDate(prenotazione.getId(), prenotazione.getAutomezzo().getId(), prenotazione.getStartdate(), prenotazione.getEnddate());
+    }
+
+    @Override
+    public boolean checkDataEndAfterDataStart(Prenotazioni prenotazione) {
+        LocalDateTime ldtStart = LocalDateTime.ofInstant(prenotazione.getStartdate().toInstant(), ZoneId.systemDefault());
+        LocalDateTime ldtEnd = LocalDateTime.ofInstant(prenotazione.getEnddate().toInstant(), ZoneId.systemDefault());
+        if (ldtEnd.isAfter(ldtStart)){
+            return true;
+        }
+        return false;
     }
 
 

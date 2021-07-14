@@ -20,5 +20,9 @@ public interface PrenotazioniService {
 
     Prenotazioni getPrenotazione(Long id);
 
-    boolean checkDatePrenotazione(Date start);
+    boolean checkEditableOrDeletableBeforeXDaysPrenotazione(Date start);
+
+    boolean checkAvailableVehicleInDatePrenotazione(Prenotazioni prenotazione);
+
+    boolean checkDataEndAfterDataStart(Prenotazioni prenotazione);
 }

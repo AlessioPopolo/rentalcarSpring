@@ -2,7 +2,6 @@ package com.rentalcar.webapp.controller;
 
 import com.rentalcar.webapp.entity.Automezzo;
 import com.rentalcar.webapp.entity.Prenotazioni;
-import com.rentalcar.webapp.entity.TipologiaAutomezzo;
 import com.rentalcar.webapp.entity.Utente;
 import com.rentalcar.webapp.service.AutoService;
 import com.rentalcar.webapp.service.PrenotazioniService;
@@ -49,7 +48,7 @@ public class PrenotazioniController {
         model.addAttribute("command", new Prenotazioni());
         model.addAttribute("updatePrenotazione", prenotazioniService.getPrenotazione(id));
         model.addAttribute("listaAutoCategoria", autoService.getAllAutoFromCategoria(categoria));
-        if (prenotazioniService.checkDatePrenotazione(prenotazioniService.getPrenotazione(id).getStartdate())){
+        if (prenotazioniService.checkEditableOrDeletableBeforeXDaysPrenotazione(prenotazioniService.getPrenotazione(id).getStartdate())){
             return "update-prenotazione-form";
         }
         else{
@@ -70,7 +69,6 @@ public class PrenotazioniController {
         Utente utente = utenteService.getCustomer(p.getUtente().getId());
         Automezzo automezzo = autoService.getAutomezzo(p.getAutomezzo().getId());
         Prenotazioni prenotazione;
-
         if (p.getId()==null){
             prenotazione = new Prenotazioni(utente, automezzo, p.getStartdate(), p.getEnddate());
             this.prenotazioniService.save(prenotazione);

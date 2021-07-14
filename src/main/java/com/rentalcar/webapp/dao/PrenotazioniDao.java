@@ -2,6 +2,7 @@ package com.rentalcar.webapp.dao;
 
 import com.rentalcar.webapp.entity.Prenotazioni;
 
+import java.util.Date;
 import java.util.List;
 
 public interface PrenotazioniDao {
@@ -16,4 +17,6 @@ public interface PrenotazioniDao {
     Prenotazioni getPrenotazione(Long id);
 
     List<Prenotazioni> getAllPrenotazioni();
+
+    boolean checkPrenotazioniSameDate(Long idPrenotazione, Long idAuto, Date start, Date end);
 }
