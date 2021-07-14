@@ -29,6 +29,9 @@ public class Prenotazioni {
     @Column(name = "endDate")
     private Date enddate;
 
+    @Column(name = "approved")
+    private boolean approved = false;
+
     public Prenotazioni() {
     }
 
@@ -85,5 +88,13 @@ public class Prenotazioni {
 
     public void setEnddate(Date enddate) {
         this.enddate = enddate;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 }
