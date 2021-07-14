@@ -14,7 +14,7 @@
           <a href="<spring:url value='/#' /> " class="nav-link">Profilo utente</a><%--TODO se admin linkare, se customer /prenotazioni/visualizza/"+userId--%>
         </li>
         <li class="nav-item">
-          <a href="<spring:url value='/listaAllPrenotazioni' /> " class="nav-link">Tutte le prenotazioni</a>
+          <a href="<spring:url value='/prenotazioni/listaAllPrenotazioni' /> " class="nav-link">Tutte le prenotazioni</a>
         </li>
       </ul>
     </div>

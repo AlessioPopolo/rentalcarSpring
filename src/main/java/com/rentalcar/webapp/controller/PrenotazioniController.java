@@ -83,7 +83,7 @@ public class PrenotazioniController {
         return "redirect:/prenotazioni/visualizza/" + utente.getId();
     }
 
-    @RequestMapping(value = "/listaAllPrenotazioni")
+    @RequestMapping(value = "/prenotazioni/listaAllPrenotazioni")
     public String listaAllPrenotazioni(Model model){
         model.addAttribute("listaPrenotazioni", prenotazioniService.getAllPrenotazioni());
         return "lista-all-prenotazioni";
