@@ -24,6 +24,11 @@ public class PrenotazioniServiceImpl implements PrenotazioniService {
     }
 
     @Override
+    public List<Prenotazioni> getAllPrenotazioni() {
+        return prenotazioniDao.getAllPrenotazioni();
+    }
+
+    @Override
     public void save(Prenotazioni prenotazione) {
         prenotazioniDao.save(prenotazione);
     }

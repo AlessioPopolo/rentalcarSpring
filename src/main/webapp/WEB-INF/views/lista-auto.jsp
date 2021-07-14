@@ -15,6 +15,9 @@
   <header id="header" class="header-panel">
     <jsp:include page="../layouts/template/header.jsp"></jsp:include>
   </header>
+
+  <h2>Auto List</h2>
+
   <div class="container-fluid">
     <form:form method="get" action="/auto/search/">
       <div class="row row-cols-2 mb-3">
@@ -36,10 +39,6 @@
         </div>
       </div>
     </form:form>
-  </div>
-
-  <div class="container-fluid">
-    <h2>Auto List</h2>
 
     <a href="<spring:url value='/auto/addAuto' /> " class="btn btn-success">New Auto</a>
 

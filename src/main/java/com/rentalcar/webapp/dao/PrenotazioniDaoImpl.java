@@ -51,4 +51,10 @@ public class PrenotazioniDaoImpl implements PrenotazioniDao {
         TypedQuery<Prenotazioni> query = sessionFactory.getCurrentSession().createQuery("FROM Prenotazioni WHERE id = '" + id + "'");
         return query.getSingleResult();
     }
+
+    @Override
+    public List<Prenotazioni> getAllPrenotazioni() {
+        TypedQuery<Prenotazioni> query = sessionFactory.getCurrentSession().createQuery("FROM Prenotazioni ORDER BY startdate");
+        return query.getResultList();
+    }
 }

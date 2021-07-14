@@ -10,6 +10,8 @@ public interface PrenotazioniService {
 
     List<Prenotazioni> getPrenotazioniByUser(Long id);
 
+    List<Prenotazioni> getAllPrenotazioni();
+
     void save(Prenotazioni prenotazione);
 
     void update(Prenotazioni prenotazione);

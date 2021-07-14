@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 @Controller
@@ -38,11 +39,12 @@ public class PrenotazioniController {
     private String deletePrenotazione(@PathVariable("prenotazioniId") String prenotazioneId, @PathVariable("userId") String userId) {
         Long id = Long.parseLong(prenotazioneId);
         prenotazioniService.delete(id);
+        //TODO if admin reindirizza da una parte altrimenti da un'altra
         return "redirect:/prenotazioni/visualizza/" + userId;
     }
 
     @PostMapping(value = "/prenotazioni/updatePrenotazione/{prenotazioniId}/{categoria}")
-    public String updateAutoForm(@PathVariable("prenotazioniId") String prenotazioniId, @PathVariable("categoria") String categoria, Model model){
+    public String updateAutoForm(@PathVariable("prenotazioniId") String prenotazioniId, @PathVariable("categoria") String categoria, Model model, HttpServletRequest request){
         Long id = Long.parseLong(prenotazioniId);
         model.addAttribute("command", new Prenotazioni());
         model.addAttribute("updatePrenotazione", prenotazioniService.getPrenotazione(id));
@@ -51,7 +53,7 @@ public class PrenotazioniController {
             return "update-prenotazione-form";
         }
         else{
-            return "redirect:/prenotazioni/visualizza/" + prenotazioniService.getPrenotazione(id).getUtente().getId();
+            return "redirect:" + request.getHeader("Referer");
         }
     }
 
@@ -64,7 +66,7 @@ public class PrenotazioniController {
     }
 
     @RequestMapping(value= "/prenotazioni/addPrenotazione/save", method = RequestMethod.POST)
-    public String addPrenotazione(@ModelAttribute("prenotazione") Prenotazioni p){
+    public String addPrenotazione(@ModelAttribute("prenotazione") Prenotazioni p, HttpServletRequest request){
         Utente utente = utenteService.getCustomer(p.getUtente().getId());
         Automezzo automezzo = autoService.getAutomezzo(p.getAutomezzo().getId());
         Prenotazioni prenotazione;
@@ -77,8 +79,14 @@ public class PrenotazioniController {
             prenotazione = new Prenotazioni(p.getId(), utente, automezzo, p.getStartdate(), p.getEnddate());
             this.prenotazioniService.update(prenotazione);
         }
-
+        //TODO if admin reindirizza da una parte altrimenti da un'altra
         return "redirect:/prenotazioni/visualizza/" + utente.getId();
+    }
+
+    @RequestMapping(value = "/listaAllPrenotazioni")
+    public String listaAllPrenotazioni(Model model){
+        model.addAttribute("listaPrenotazioni", prenotazioniService.getAllPrenotazioni());
+        return "lista-all-prenotazioni";
     }
 
 }
