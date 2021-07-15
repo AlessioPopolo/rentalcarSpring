@@ -35,7 +35,16 @@ public class AutoController {
     public String addCustomerForm(Locale locale, Model model){
         model.addAttribute("command", new Automezzo());
         model.addAttribute("listaCategorie", tipologiaAutoService.getAllTipologie());
-        return "add-auto-form";
+        return "update-auto-form";
+    }
+
+    @PostMapping(value = "/auto/updateAuto/{autoId}")
+    public String updateAutoForm(@PathVariable("autoId") String autoId, Locale locale, Model model){
+        Long id = Long.parseLong(autoId);
+        model.addAttribute("command", new Automezzo());
+        model.addAttribute("listaCategorie", tipologiaAutoService.getAllTipologie());
+        model.addAttribute("updateAuto", autoService.getAutomezzo(id));
+        return "update-auto-form";
     }
 
     @RequestMapping(value= "/auto/addAuto/save", method = RequestMethod.POST)
@@ -60,15 +69,6 @@ public class AutoController {
         Long id = Long.parseLong(autoId);
         autoService.delete(id);
         return "redirect:/auto";
-    }
-
-    @PostMapping(value = "/auto/updateAuto/{autoId}")
-    public String updateAutoForm(@PathVariable("autoId") String autoId, Locale locale, Model model){
-        Long id = Long.parseLong(autoId);
-        model.addAttribute("command", new Automezzo());
-        model.addAttribute("listaCategorie", tipologiaAutoService.getAllTipologie());
-        model.addAttribute("updateAuto", autoService.getAutomezzo(id));
-        return "update-auto-form";
     }
 
     @GetMapping(value = "/auto/search/")

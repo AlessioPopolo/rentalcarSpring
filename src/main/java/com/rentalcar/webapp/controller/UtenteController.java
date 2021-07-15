@@ -30,7 +30,7 @@ public class UtenteController {
     public String addCustomerForm(Locale locale, Model model){
         model.addAttribute("command", new Utente());
         model.addAttribute("listaRuoli", tipologiaUtenteService.getAllTipologie());
-        return "add-customer-form";
+        return "update-customer-form";
     }
 
     @PostMapping(value = "/utente/updateCustomer/{userId}")
