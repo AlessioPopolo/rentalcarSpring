@@ -51,7 +51,9 @@ public class PrenotazioniServiceImpl implements PrenotazioniService {
 
     @Override
     public void approve(Prenotazioni prenotazione) {
-        prenotazioniDao.approve(prenotazione);
+        if (checkAvailableVehicleInDatePrenotazione(prenotazione)){
+            prenotazioniDao.approve(prenotazione);
+        }
     }
 
     @Override

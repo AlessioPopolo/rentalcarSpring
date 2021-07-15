@@ -70,10 +70,10 @@ public class PrenotazioniDaoImpl implements PrenotazioniDao {
     public boolean checkPrenotazioniSameDate(Long idPrenotazione, Long idAuto, Date start, Date end) {
         TypedQuery<Prenotazioni> query;
         if (idPrenotazione == null){
-            query = sessionFactory.getCurrentSession().createQuery("FROM Prenotazioni WHERE automezzo.id = '" + idAuto + "' AND EXISTS (FROM Prenotazioni where startdate <= '" + end + "' AND enddate >= '" + start + "')");
+            query = sessionFactory.getCurrentSession().createQuery("FROM Prenotazioni WHERE automezzo.id = '" + idAuto + "' AND EXISTS (FROM Prenotazioni WHERE approved = true AND startdate <= '" + end + "' AND enddate >= '" + start + "')");
         }
         else {
-            query = sessionFactory.getCurrentSession().createQuery("FROM Prenotazioni WHERE automezzo.id = '" + idAuto + "' AND EXISTS (FROM Prenotazioni where startdate <= '" + end + "' AND enddate >= '" + start + "' AND id != '" + idPrenotazione + "')");
+            query = sessionFactory.getCurrentSession().createQuery("FROM Prenotazioni WHERE automezzo.id = '" + idAuto + "' AND EXISTS (FROM Prenotazioni WHERE approved = true AND startdate <= '" + end + "' AND enddate >= '" + start + "' AND id != '" + idPrenotazione + "')");
         }
         if (query.getResultList().isEmpty()){
             return true;
