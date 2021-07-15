@@ -65,17 +65,24 @@
 
           <td>
             <div class="row">
-              <div class="col">
-                <form:form method="POST" action="/prenotazioni/approvePrenotazione/${tempPrenotazione.id}">
-                  <input type="submit" class="form-control btn btn-success" value="APPROVE"/>
-                </form:form>
-              </div>
+              <c:choose>
+                <c:when test="${!tempPrenotazione.approved}">
+                  <div class="col">
+                    <form:form method="POST" action="/prenotazioni/approve/${tempPrenotazione.id}">
+                      <input type="submit" class="form-control btn btn-success" value="APPROVE"/>
+                    </form:form>
+                  </div>
 
-              <div class="col">
-                <form:form method="POST" action="/prenotazioni/delete/${tempPrenotazione.id}/${userId}">
-                  <input type="submit" class="form-control btn btn-danger" onclick="if (!(confirm('Vuoi declinare questa prenotazione?'))) return false" value="DECLINE"/>
-                </form:form>
-              </div>
+                  <div class="col">
+                    <form:form method="POST" action="/prenotazioni/delete/${tempPrenotazione.id}/${tempPrenotazione.utente.id}">
+                      <input type="submit" class="form-control btn btn-danger" onclick="if (!(confirm('Vuoi declinare questa prenotazione?'))) return false" value="DECLINE"/>
+                    </form:form>
+                  </div>
+                </c:when>
+                <c:otherwise>
+                  <input type="submit" class="form-control btn btn-success" value="APPROVED" disabled/>
+                </c:otherwise>
+              </c:choose>
             </div>
           </td>
 

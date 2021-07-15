@@ -18,6 +18,8 @@ public interface PrenotazioniService {
 
     void delete(Long id);
 
+    void approve(Prenotazioni prenotazione);
+
     Prenotazioni getPrenotazione(Long id);
 
     boolean checkEditableOrDeletableBeforeXDaysPrenotazione(Date start);

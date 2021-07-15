@@ -87,4 +87,11 @@ public class PrenotazioniController {
         return "lista-all-prenotazioni";
     }
 
+    @RequestMapping(value= "/prenotazioni/approve/{prenotazioniId}", method = RequestMethod.POST)
+    public String approvePrenotazione(@PathVariable("prenotazioniId") String prenotazioniId, HttpServletRequest request){
+        Prenotazioni prenotazione = prenotazioniService.getPrenotazione(Long.parseLong(prenotazioniId));
+        prenotazioniService.approve(prenotazione);
+        return "redirect:" + request.getHeader("Referer");
+    }
+
 }

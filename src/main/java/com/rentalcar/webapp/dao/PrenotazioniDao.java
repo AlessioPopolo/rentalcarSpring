@@ -14,6 +14,8 @@ public interface PrenotazioniDao {
 
     void delete(Long id);
 
+    void approve(Prenotazioni prenotazione);
+
     Prenotazioni getPrenotazione(Long id);
 
     List<Prenotazioni> getAllPrenotazioni();

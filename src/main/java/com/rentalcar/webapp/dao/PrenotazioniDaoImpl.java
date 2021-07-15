@@ -3,6 +3,7 @@ package com.rentalcar.webapp.dao;
 import com.rentalcar.webapp.entity.Prenotazioni;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -43,6 +44,14 @@ public class PrenotazioniDaoImpl implements PrenotazioniDao {
         session.delete(prenotazione);
         //This makes the pending delete to be done
         session.flush() ;
+    }
+
+    @Override
+    public void approve(Prenotazioni prenotazione) {
+        Session session = this.sessionFactory.getCurrentSession();
+        prenotazione.setApproved(true);
+        session.update(prenotazione);
+        session.flush();
     }
 
     @Override
