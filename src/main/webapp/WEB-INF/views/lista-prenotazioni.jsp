@@ -48,25 +48,35 @@
           <td><fmt:formatDate value="${tempPrenotazione.enddate}" type="date" pattern="dd-MM-yyyy"/></td>
 
           <td>
-            <form:form method="POST" action="/prenotazioni/updatePrenotazione/${tempPrenotazione.id}/${tempPrenotazione.automezzo.categoria.categoria}">
-              <input type="submit" class="btn btn-primary" value="UPDATE"/>
-            </form:form>
-            <form:form method="POST" action="/prenotazioni/delete/${tempPrenotazione.id}/${userId}">
-              <button type="submit" class="btn btn-danger" onclick="if (!(confirm('Vuoi eliminare questa prenotazione?'))) return false">
-                DELETE
-              </button>
-            </form:form>
+            <div class="row">
+              <div class="col">
+                <form:form method="POST" action="/prenotazioni/updatePrenotazione/${tempPrenotazione.id}/${tempPrenotazione.automezzo.categoria.categoria}">
+                  <input type="submit" class="form-control btn btn-primary" value="UPDATE"/>
+                </form:form>
+              </div>
+
+              <div class="col">
+                <form:form method="POST" action="/prenotazioni/delete/${tempPrenotazione.id}/${userId}">
+                  <input type="submit" class="form-control btn btn-danger" onclick="if (!(confirm('Vuoi eliminare questa prenotazione?'))) return false" value="DELETE"/>
+                </form:form>
+              </div>
+            </div>
           </td>
 
           <td>
-            <form:form method="POST" action="/prenotazioni/approvePrenotazione/${tempPrenotazione.id}">
-              <input type="submit" class="btn btn-success" value="APPROVE"/>
-            </form:form>
-            <form:form method="POST" action="/prenotazioni/delete/${tempPrenotazione.id}/${userId}">
-              <button type="submit" class="btn btn-danger" onclick="if (!(confirm('Vuoi declinare questa prenotazione?'))) return false">
-                DECLINE
-              </button>
-            </form:form>
+            <div class="row">
+              <div class="col">
+                <form:form method="POST" action="/prenotazioni/approvePrenotazione/${tempPrenotazione.id}">
+                  <input type="submit" class="form-control btn btn-success" value="APPROVE"/>
+                </form:form>
+              </div>
+
+              <div class="col">
+                <form:form method="POST" action="/prenotazioni/delete/${tempPrenotazione.id}/${userId}">
+                  <input type="submit" class="form-control btn btn-danger" onclick="if (!(confirm('Vuoi declinare questa prenotazione?'))) return false" value="DECLINE"/>
+                </form:form>
+              </div>
+            </div>
           </td>
 
         </tr>
