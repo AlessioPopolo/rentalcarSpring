@@ -20,4 +20,5 @@ public interface UtenteDao {
 
     void delete(Long id);
 
+    Utente findUserByStringId(String id);
 }

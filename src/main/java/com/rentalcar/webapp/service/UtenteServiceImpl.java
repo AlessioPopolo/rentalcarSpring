@@ -31,6 +31,11 @@ public class UtenteServiceImpl implements UtenteService{
     }
 
     @Override
+    public Utente findUserByStringId(String id) {
+        return utenteDao.findUserByStringId(id);
+    }
+
+    @Override
     public List<Utente> searchCustomers(String theSearchName) {
         return utenteDao.searchCustomers(theSearchName);
     }

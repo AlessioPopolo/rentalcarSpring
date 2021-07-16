@@ -69,4 +69,11 @@ public class UtenteDaoImpl implements UtenteDao{
         //This makes the pending delete to be done
         session.flush() ;
     }
+
+    @Override
+    public Utente findUserByStringId(String id) {
+        Long longId = Long.parseLong(id);
+        TypedQuery<Utente> query = sessionFactory.getCurrentSession().createQuery("FROM Utente WHERE id = '" + longId + "'");
+        return query.getSingleResult();
+    }
 }

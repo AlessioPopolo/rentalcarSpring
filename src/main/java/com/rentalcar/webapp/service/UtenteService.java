@@ -12,6 +12,8 @@ public interface UtenteService {
 
     Utente getCustomer(Long id);
 
+    Utente findUserByStringId(String id);
+
     List<Utente> searchCustomers(String theSearchName);
 
     void save(Utente theCustomer);
