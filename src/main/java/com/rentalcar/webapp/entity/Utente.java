@@ -14,6 +14,9 @@ public class Utente {
     @Column(name = "id")
     private Long id;
 
+    @Column(name="SSO_ID", unique=true, nullable=false)
+    private String ssoId;
+
     @Column(name = "password")
     private String password;
 
@@ -57,6 +60,14 @@ public class Utente {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getSsoId() {
+        return ssoId;
+    }
+
+    public void setSsoId(String ssoId) {
+        this.ssoId = ssoId;
     }
 
     public String getPassword() {

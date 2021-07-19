@@ -11,12 +11,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -37,30 +33,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
+    private static final String[] ADMIN_MATCHER = {"/utente/lista-customers", "/prenotazioni/listaAllPrenotazioni",
+            "/utente/addCustomer", "/utente/delete/", "/auto/addAuto", "/auto/updateAuto/",
+            "/auto/delete/", "/prenotazioni/approve/" };
+
+    private static final String[] USER_MATCHER = {"/prenotazioni/addPrenotazione/**", };
+
     @Override
     protected void configure(final HttpSecurity http) throws Exception{
         http
                 .authorizeRequests()
-                .antMatchers("/resources/**").permitAll()
-                .antMatchers("/login/**").permitAll()
-                .antMatchers("/").hasAnyRole("ANONYMOUS", "USER")
-                /*.antMatchers(ADMIN_MATCHER).access("hasRole('ADMIN')")*/
-                .antMatchers("/utente/**").hasRole("USER")
+                    .antMatchers("/resources/**").permitAll()
+                    .antMatchers("/login/**").permitAll()
+                    .antMatchers("/").hasAnyRole("ANONYMOUS", "USER")
+                    .antMatchers(ADMIN_MATCHER).access("hasRole('ADMIN')")
+                    .antMatchers(USER_MATCHER).access("hasRole('USER')")
                 .and()
-                .formLogin()
-                .loginPage("/login/form")
-                .loginProcessingUrl("/login")
-                .failureUrl("/login/form?error")
-                .usernameParameter("userId")
-                .passwordParameter("password")
+                    .formLogin()
+                        .loginPage("/login/")
+                        .loginProcessingUrl("/login")
+                        .failureUrl("/login?error")
+                        .usernameParameter("ssoId")
+                        .passwordParameter("password")
                 .and()
-                .csrf()
+                    .csrf()
                 .and()
-                .exceptionHandling()
-                .accessDeniedPage("/access-denied")
+                    .exceptionHandling()
+                        .accessDeniedPage("/login?forbidden")
                 .and()
-                .logout()
-                .logoutUrl("/login/form?logout")
+                    .logout()
+                        .logoutUrl("/login?logout")
         ;
     }
 

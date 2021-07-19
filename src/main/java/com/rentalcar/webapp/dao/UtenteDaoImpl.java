@@ -1,10 +1,8 @@
 package com.rentalcar.webapp.dao;
 
-import com.rentalcar.webapp.entity.TipologiaUtente;
 import com.rentalcar.webapp.entity.Utente;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -71,9 +69,8 @@ public class UtenteDaoImpl implements UtenteDao{
     }
 
     @Override
-    public Utente findUserByStringId(String id) {
-        Long longId = Long.parseLong(id);
-        TypedQuery<Utente> query = sessionFactory.getCurrentSession().createQuery("FROM Utente WHERE id = '" + longId + "'");
+    public Utente findUserBySSO(String sso) {
+        TypedQuery<Utente> query = sessionFactory.getCurrentSession().createQuery("FROM Utente WHERE ssoId = '" + sso + "'");
         return query.getSingleResult();
     }
 }

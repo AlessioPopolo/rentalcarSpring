@@ -20,7 +20,7 @@ public class UtenteController {
     @Autowired
     private TipologiaUtenteService tipologiaUtenteService;
 
-    @GetMapping("/")
+    @GetMapping("/utente/lista-customers")
     public String userForm(Locale locale, Model model){
         model.addAttribute("utenti", utenteService.getAllCustomers());
         return "lista-customers";
@@ -55,7 +55,7 @@ public class UtenteController {
             nuovoUtente = new Utente(p.getId(), p.getNome(), p.getCognome(), p.getDatadinascita(), mioRuolo);
             this.utenteService.update(nuovoUtente);
         }
-        return "redirect:/";
+        return "redirect:/utente/lista-customers";
 
     }
 
@@ -63,7 +63,7 @@ public class UtenteController {
     private String deleteCustomer(@PathVariable("userId") String customerId) {
         Long id = Long.parseLong(customerId);
         utenteService.delete(id);
-        return "redirect:/";
+        return "redirect:/utente/lista-customers";
     }
 
     @GetMapping(value = "/utente/search/")

@@ -12,7 +12,7 @@ public interface UtenteService {
 
     Utente getCustomer(Long id);
 
-    Utente findUserByStringId(String id);
+    Utente findUserBySSO(String sso);
 
     List<Utente> searchCustomers(String theSearchName);
 

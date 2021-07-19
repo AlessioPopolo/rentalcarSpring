@@ -31,8 +31,8 @@ public class UtenteServiceImpl implements UtenteService{
     }
 
     @Override
-    public Utente findUserByStringId(String id) {
-        return utenteDao.findUserByStringId(id);
+    public Utente findUserBySSO(String sso) {
+        return utenteDao.findUserBySSO(sso);
     }
 
     @Override

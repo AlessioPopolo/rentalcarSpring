@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
@@ -25,21 +24,22 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        Utente utente = utenteService.findUserByStringId(id);
+    public UserDetails loadUserByUsername(String ssoId) throws UsernameNotFoundException {
+        Utente utente = utenteService.findUserBySSO(ssoId);
         logger.debug("User : {}", utente);
         if(utente==null){
             logger.debug("Utente non trovato");
             throw new UsernameNotFoundException("Utente non trovato");
         }
-        return new org.springframework.security.core.userdetails.User(utente.getId().toString(), utente.getPassword(),
+        return new org.springframework.security.core.userdetails.User(utente.getSsoId(), utente.getPassword(),
                 true, true, true, true, getGrantedAuthorities(utente));
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(Utente utente){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        String ruolo = utente.getRuolo().getRuolo();
 
-        authorities.add(new SimpleGrantedAuthority(("ROLE_"+utente.getRuolo()).toUpperCase(Locale.ROOT)));
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
         logger.debug("authorities : {}", authorities);
         return authorities;
