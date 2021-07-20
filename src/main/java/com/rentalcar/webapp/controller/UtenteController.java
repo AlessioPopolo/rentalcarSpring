@@ -57,6 +57,7 @@ public class UtenteController {
             this.utenteService.save(nuovoUtente);
         }
         else {
+            p.setPassword(passwordEncoder.encode(p.getPassword()));
             nuovoUtente = new Utente(p.getId(), p.getSsoId(), p.getPassword(), p.getNome(), p.getCognome(), p.getDatadinascita(), mioRuolo);
             this.utenteService.update(nuovoUtente);
         }

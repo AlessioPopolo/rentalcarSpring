@@ -28,9 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] ADMIN_MATCHER = {"/utente/lista-customers", "/prenotazioni/listaAllPrenotazioni",
             "/utente/addCustomer", "/utente/delete/", "/auto/addAuto", "/auto/updateAuto/",
-            "/auto/delete/", "/prenotazioni/approve/", "/prenotazioni/visualizza/**" };
+            "/auto/delete/", "/prenotazioni/approve/" };
 
-    private static final String[] USER_MATCHER = {"/prenotazioni/addPrenotazione/**", "/prenotazioni/visualizza/**" };
+    private static final String[] USER_MATCHER = {"/prenotazioni/addPrenotazione/**"};
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception{
@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/resources/**").permitAll()
                     .antMatchers("/login").permitAll()
                     .antMatchers("/").permitAll()
+                    .antMatchers("/prenotazioni/visualizza/**").hasAnyRole("ADMIN", "USER")
                     .antMatchers(ADMIN_MATCHER).access("hasRole('ADMIN')")
                     .antMatchers(USER_MATCHER).access("hasRole('USER')")
                 .and()
