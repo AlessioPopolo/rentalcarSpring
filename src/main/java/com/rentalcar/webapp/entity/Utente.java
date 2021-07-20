@@ -39,7 +39,19 @@ public class Utente {
 
     public Utente(){}
 
-    public Utente(String nome, String cognome, Date datadinascita, TipologiaUtente ruolo) {
+    public Utente(Long id, String ssoId, String password, String nome, String cognome, Date datadinascita, TipologiaUtente ruolo) {
+        this.id = id;
+        this.ssoId = ssoId;
+        this.password = password;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.datadinascita = datadinascita;
+        this.ruolo = ruolo;
+    }
+
+    public Utente(String ssoId, String password, String nome, String cognome, Date datadinascita, TipologiaUtente ruolo) {
+        this.ssoId = ssoId;
+        this.password = password;
         this.nome = nome;
         this.cognome = cognome;
         this.datadinascita = datadinascita;

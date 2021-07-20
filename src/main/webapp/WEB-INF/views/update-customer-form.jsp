@@ -23,6 +23,14 @@
           <table class="table">
             <tbody>
                 <tr>
+                    <td><label for="username" class="col-form-label">Username</label></td>
+                    <td><form:input id="username" path="ssoId" type="text" class="form-control" value="${updateUtente.ssoId}"/></td>
+                </tr>
+                <tr>
+                    <td><label for="password" class="col-form-label">Password</label></td>
+                    <td><form:input id="password" path="password" type="password" class="form-control" value="${updateUtente.password}"/></td>
+                </tr>
+                <tr>
                     <td><label class="col-form-label" for="nome">Nome</label></td>
                     <td><form:input id="nome" path="nome" type="text" class="form-control" value="${updateUtente.nome}"/></td>
                 </tr>

@@ -5,6 +5,7 @@ import com.rentalcar.webapp.entity.Utente;
 import com.rentalcar.webapp.service.TipologiaUtenteService;
 import com.rentalcar.webapp.service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,9 @@ public class UtenteController {
 
     @Autowired
     private TipologiaUtenteService tipologiaUtenteService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/utente/lista-customers")
     public String userForm(Locale locale, Model model){
@@ -48,11 +52,12 @@ public class UtenteController {
         TipologiaUtente mioRuolo = this.tipologiaUtenteService.getRuolo(p.getRuolo().getRuolo());
         Utente nuovoUtente;
         if (p.getId()== null){
-            nuovoUtente = new Utente(p.getNome(), p.getCognome(), p.getDatadinascita(), mioRuolo);
+            p.setPassword(passwordEncoder.encode(p.getPassword()));
+            nuovoUtente = new Utente(p.getSsoId(), p.getPassword(), p.getNome(), p.getCognome(), p.getDatadinascita(), mioRuolo);
             this.utenteService.save(nuovoUtente);
         }
         else {
-            nuovoUtente = new Utente(p.getId(), p.getNome(), p.getCognome(), p.getDatadinascita(), mioRuolo);
+            nuovoUtente = new Utente(p.getId(), p.getSsoId(), p.getPassword(), p.getNome(), p.getCognome(), p.getDatadinascita(), mioRuolo);
             this.utenteService.update(nuovoUtente);
         }
         return "redirect:/utente/lista-customers";

@@ -20,11 +20,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("customUserDetailsService")
     UserDetailsService userDetailsService;
 
-/*
-    @Autowired
-    PersistentTokenRepository tokenRepository;
-*/
-
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
@@ -33,9 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] ADMIN_MATCHER = {"/utente/lista-customers", "/prenotazioni/listaAllPrenotazioni",
             "/utente/addCustomer", "/utente/delete/", "/auto/addAuto", "/auto/updateAuto/",
-            "/auto/delete/", "/prenotazioni/approve/" };
+            "/auto/delete/", "/prenotazioni/approve/", "/prenotazioni/visualizza/**" };
 
-    private static final String[] USER_MATCHER = {"/prenotazioni/addPrenotazione/**", };
+    private static final String[] USER_MATCHER = {"/prenotazioni/addPrenotazione/**", "/prenotazioni/visualizza/**" };
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception{
@@ -61,8 +56,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .accessDeniedPage("/accessDenied")
                 .and()
                     .logout()
-                        .logoutUrl("/login?logout")
-
+                        .deleteCookies("JSESSIONID")
+                        .deleteCookies("remember-me")
+                        .logoutUrl("/logout")
         ;
     }
 
@@ -78,12 +74,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
-
-    /*@Bean
-    public PersistentTokenBasedRememberMeServices getPersistentTokenBasedRememberMeServices() {
-        PersistentTokenBasedRememberMeServices tokenBasedservice = new PersistentTokenBasedRememberMeServices(
-                "remember-me", userDetailsService, tokenRepository);
-        return tokenBasedservice;
-    }*/
 
 }

@@ -1,5 +1,8 @@
 package com.rentalcar.webapp.controller;
 
+import com.rentalcar.webapp.entity.Utente;
+import com.rentalcar.webapp.service.UtenteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,28 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class LoginController {
 
+    @Autowired
+    private UtenteService utenteService;
+
     @GetMapping(value = {"/", "/login"})
     public String loginForm(){
         return "login";
     }
-
-    /*@RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
-    public String accessDeniedPage(ModelMap model) {
-        model.addAttribute("loggedinuser", getPrincipal());
-        return "accessDenied";
-    }*/
-
-    /*@RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPage() {
-
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-        if (authentication.getPrincipal() == "anonymousUser") {
-            return "login";
-        } else {
-            return "redirect:/utente/lista-customers";
-        }
-    }*/
 
     @RequestMapping(value = "/accessDenied")
     public String accessDenied(){
@@ -45,8 +33,6 @@ public class LoginController {
     public String logoutPage (HttpServletRequest request, HttpServletResponse response){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null){
-            //new SecurityContextLogoutHandler().logout(request, response, auth);
-            /*persistentTokenBasedRememberMeServices.logout(request, response, auth);*/
             SecurityContextHolder.getContext().setAuthentication(null);
         }
         return "redirect:/login?logout";
@@ -54,11 +40,20 @@ public class LoginController {
 
     @GetMapping("/redirectHomepage")
     public String userForm(Authentication authentication){
-        if (authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
-            return "redirect:/utente/lista-customers";
+        if (authentication.getAuthorities()!=null){
+            if (authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
+                return "redirect:/utente/lista-customers";
+            }
+            else if (authentication.getAuthorities().toString().equals("[ROLE_USER]")){
+                Utente u = utenteService.findUserBySSO(authentication.getName());
+                return "redirect:/prenotazioni/visualizza/"+u.getId();
+            }
+            else {
+                return "redirect:/login";
+            }
         }
         else {
-            return "redirect:/prenotazioni/visualizza/1";
+            return "redirect:/login";
         }
     }
 
