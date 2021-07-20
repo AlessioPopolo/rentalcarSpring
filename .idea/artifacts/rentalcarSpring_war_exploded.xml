@@ -54,6 +54,8 @@
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:5.5.1" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-crypto:5.5.1" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:5.5.1" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:5.5.1" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:5.5.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

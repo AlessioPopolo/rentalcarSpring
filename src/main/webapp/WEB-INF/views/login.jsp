@@ -9,45 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<%--
-    <div id="mainWrapper">
-        <div class="container mt-auto">
-            <div class="form-floating">
-                <c:url var="loginUrl" value="/login" />
-                <form action="${loginUrl}" method="post" class="form-horizontal">
-                    <c:if test="${param.error != null}">
-                        <div class="alert alert-danger">
-                            <p>Invalid username and password.</p>
-                        </div>
-                    </c:if>
-                    <c:if test="${param.logout != null}">
-                        <div class="alert alert-success">
-                            <p>You have been logged out successfully.</p>
-                        </div>
-                    </c:if>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="ssoId" placeholder="Enter Username" required>
-                        <label for="username">Email address</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="password" class="form-control" name="password" placeholder="Password" required>
-                        <label for="password">Password</label>
-                    </div>
-                    <div class="input-group input-sm">
-                        <div class="form-check">
-                            <label><input class="form-check-input" type="checkbox" name="remember-me"> Remember Me</label>
-                        </div>
-                    </div>
-                    <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
-
-                    <div class="form-actions">
-                        <input type="submit" class="btn btn-primary" value="Log in">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
---%>
 
     <div class="wrapper fadeInDown">
         <div id="formContent">

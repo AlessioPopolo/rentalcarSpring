@@ -38,8 +38,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     private List<GrantedAuthority> getGrantedAuthorities(Utente utente){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         String ruolo = utente.getRuolo().getRuolo();
+        if (ruolo.equals("superuser")){
+            ruolo="ADMIN";
+        }
+        else if (ruolo.equals("customer")){
+            ruolo="USER";
+        }
 
-        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_"+ruolo));
 
         logger.debug("authorities : {}", authorities);
         return authorities;

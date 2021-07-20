@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationTrustResolver;
-import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,14 +42,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/resources/**").permitAll()
-                    .antMatchers("/login/**").permitAll()
-                    .antMatchers("/").hasAnyRole("ANONYMOUS", "USER")
+                    .antMatchers("/login").permitAll()
+                    .antMatchers("/").permitAll()
                     .antMatchers(ADMIN_MATCHER).access("hasRole('ADMIN')")
                     .antMatchers(USER_MATCHER).access("hasRole('USER')")
                 .and()
                     .formLogin()
                         .loginPage("/login/")
                         .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/redirectHomepage")
                         .failureUrl("/login?error")
                         .usernameParameter("ssoId")
                         .passwordParameter("password")
@@ -59,10 +58,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .csrf()
                 .and()
                     .exceptionHandling()
-                        .accessDeniedPage("/login?forbidden")
+                        .accessDeniedPage("/accessDenied")
                 .and()
                     .logout()
                         .logoutUrl("/login?logout")
+
         ;
     }
 
@@ -85,10 +85,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "remember-me", userDetailsService, tokenRepository);
         return tokenBasedservice;
     }*/
-
-    @Bean
-    public AuthenticationTrustResolver getAuthenticationTrustResolver() {
-        return new AuthenticationTrustResolverImpl();
-    }
 
 }
