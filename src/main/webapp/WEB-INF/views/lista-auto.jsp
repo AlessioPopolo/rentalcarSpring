@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!doctype html>
 <html>
 <head>
@@ -39,8 +40,9 @@
         </div>
       </div>
     </form:form>
-
-    <a href="<spring:url value='/auto/addAuto' /> " class="btn btn-success">New Auto</a>
+    <sec:authorize access="hasRole('ADMIN')">
+      <a href="<spring:url value='/auto/addAuto' /> " class="btn btn-success">New Auto</a>
+    </sec:authorize>
 
     <table class="table">
       <thead>

@@ -11,7 +11,7 @@
         <li class="nav-item">
           <a href="<spring:url value='/auto' /> " class="nav-link">Parco auto</a>
         </li>
-        <sec:authorize access="hasAuthority('ADMIN')">
+        <sec:authorize access="hasRole('ADMIN')">
           <li class="nav-item">
             <a href="<spring:url value='/prenotazioni/listaAllPrenotazioni' /> " class="nav-link">Tutte le prenotazioni</a>
           </li>

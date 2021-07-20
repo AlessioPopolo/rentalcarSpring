@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!doctype html>
 <html>
 <head>
@@ -29,7 +30,10 @@
         <th>Inizio</th>
         <th>Fine</th>
         <th>Azioni</th>
-        <th>Approvazioni</th>
+        <sec:authorize access="hasRole('ADMIN')">
+          <th>Approvazioni</th>
+        </sec:authorize>
+
       </tr>
       </thead>
       <tbody>
@@ -63,28 +67,31 @@
             </div>
           </td>
 
-          <td>
-            <div class="row">
-              <c:choose>
-                <c:when test="${!tempPrenotazione.approved}">
-                  <div class="col">
-                    <form:form method="POST" action="/prenotazioni/approve/${tempPrenotazione.id}">
-                      <input type="submit" class="form-control btn btn-success" value="APPROVE"/>
-                    </form:form>
-                  </div>
+          <sec:authorize access="hasRole('ADMIN')">
+            <td>
+              <div class="row">
+                <c:choose>
+                  <c:when test="${!tempPrenotazione.approved}">
+                    <div class="col">
+                      <form:form method="POST" action="/prenotazioni/approve/${tempPrenotazione.id}">
+                        <input type="submit" class="form-control btn btn-success" value="APPROVE"/>
+                      </form:form>
+                    </div>
 
-                  <div class="col">
-                    <form:form method="POST" action="/prenotazioni/delete/${tempPrenotazione.id}/${tempPrenotazione.utente.id}">
-                      <input type="submit" class="form-control btn btn-danger" onclick="if (!(confirm('Vuoi declinare questa prenotazione?'))) return false" value="DECLINE"/>
-                    </form:form>
-                  </div>
-                </c:when>
-                <c:otherwise>
-                  <input type="submit" class="form-control btn btn-success" value="APPROVED" disabled/>
-                </c:otherwise>
-              </c:choose>
-            </div>
-          </td>
+                    <div class="col">
+                      <form:form method="POST" action="/prenotazioni/delete/${tempPrenotazione.id}/${tempPrenotazione.utente.id}">
+                        <input type="submit" class="form-control btn btn-danger" onclick="if (!(confirm('Vuoi declinare questa prenotazione?'))) return false" value="DECLINE"/>
+                      </form:form>
+                    </div>
+                  </c:when>
+                  <c:otherwise>
+                    <input type="submit" class="form-control btn btn-success" value="APPROVED" disabled/>
+                  </c:otherwise>
+                </c:choose>
+              </div>
+            </td>
+          </sec:authorize>
+
 
         </tr>
       </c:forEach>
