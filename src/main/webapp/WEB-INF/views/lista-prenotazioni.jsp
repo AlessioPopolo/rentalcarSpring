@@ -30,9 +30,7 @@
         <th>Inizio</th>
         <th>Fine</th>
         <th>Azioni</th>
-        <sec:authorize access="hasRole('ADMIN')">
-          <th>Approvazioni</th>
-        </sec:authorize>
+        <th>Approvazioni</th>
 
       </tr>
       </thead>
@@ -89,6 +87,18 @@
                   </c:otherwise>
                 </c:choose>
               </div>
+            </td>
+          </sec:authorize>
+          <sec:authorize access="hasRole('USER')">
+            <td class="text-center">
+              <c:choose>
+                <c:when test="${tempPrenotazione.approved}">
+                  <p class="btn btn-success disabled">Approvata</p>
+                </c:when>
+                <c:otherwise>
+                  <p class="btn btn-danger disabled">Da approvare</p>
+                </c:otherwise>
+              </c:choose>
             </td>
           </sec:authorize>
 
