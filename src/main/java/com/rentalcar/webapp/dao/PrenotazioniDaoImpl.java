@@ -3,7 +3,6 @@ package com.rentalcar.webapp.dao;
 import com.rentalcar.webapp.entity.Prenotazioni;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,7 +32,7 @@ public class PrenotazioniDaoImpl implements PrenotazioniDao {
     @Override
     public void update(Prenotazioni prenotazione) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.update(prenotazione);
+        session.merge(prenotazione);
         session.flush();
     }
 
@@ -69,15 +68,20 @@ public class PrenotazioniDaoImpl implements PrenotazioniDao {
     @Override
     public boolean checkPrenotazioniSameDate(Long idPrenotazione, Long idAuto, Date start, Date end) {
         TypedQuery<Prenotazioni> query;
-        if (idPrenotazione == null){
-            query = sessionFactory.getCurrentSession().createQuery("FROM Prenotazioni WHERE automezzo.id = '" + idAuto + "' AND EXISTS (FROM Prenotazioni WHERE approved = true AND startdate <= '" + end + "' AND enddate >= '" + start + "')");
-        }
-        else {
-            query = sessionFactory.getCurrentSession().createQuery("FROM Prenotazioni WHERE automezzo.id = '" + idAuto + "' AND EXISTS (FROM Prenotazioni WHERE approved = true AND startdate <= '" + end + "' AND enddate >= '" + start + "' AND id != '" + idPrenotazione + "')");
-        }
-        if (query.getResultList().isEmpty()){
+        query = sessionFactory.getCurrentSession()
+                .createQuery("FROM Prenotazioni WHERE id NOT IN (FROM Prenotazioni where (startdate < '" + start + "' AND enddate > '" + start + "') OR (startdate < '" + end + "' AND enddate > '" + end + "') OR ('" + start + "' <= startdate AND '" + end + "' >= startdate))");
+        TypedQuery<Prenotazioni> query1 = sessionFactory.getCurrentSession()
+                .createQuery("FROM Prenotazioni WHERE ((startdate BETWEEN '" + start + "' AND '" + end + "' ) OR (enddate BETWEEN '" + start + "' AND '" + end + "')) AND approved = true AND automezzo.id = '" + idAuto + "'");
+        List<Prenotazioni> p = query1.getResultList();
+        //SE VUOTO È SEMPRE POSSIBILE INSERIRE (CASI ADD E APPROVE O UPDATE SE NON ANCORA APPROVATA)
+        if (query1.getResultList().isEmpty()){
             return true;
         }
+        //SE C'È UNA TUPLA SOLTANTO, CONTROLLO SE È UNA UPDATE SU QUELL'ID
+        if (query1.getResultList().size()==1 && query1.getSingleResult().getId() == idPrenotazione){
+            return true;
+        }
+        //SE NON CADO NEI 2 IF SOPRA, ALLORA FALSE
         return false;
     }
 }

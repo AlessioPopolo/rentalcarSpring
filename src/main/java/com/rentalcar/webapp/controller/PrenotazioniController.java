@@ -77,7 +77,7 @@ public class PrenotazioniController {
             prenotazione = new Prenotazioni(p.getId(), utente, automezzo, p.getStartdate(), p.getEnddate());
             this.prenotazioniService.update(prenotazione);
         }
-        //TODO if admin reindirizza da una parte altrimenti da un'altra
+
         return "redirect:/prenotazioni/visualizza/" + utente.getId();
     }
 

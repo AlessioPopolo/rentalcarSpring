@@ -38,6 +38,7 @@ public class PrenotazioniServiceImpl implements PrenotazioniService {
     @Override
     public void update(Prenotazioni prenotazione) {
         if (checkEditableOrDeletableBeforeXDaysPrenotazione(prenotazione.getStartdate()) && checkDataEndAfterDataStart(prenotazione) && checkAvailableVehicleInDatePrenotazione(prenotazione)){
+            prenotazione.setApproved(false);
             prenotazioniDao.update(prenotazione);
         }
     }
