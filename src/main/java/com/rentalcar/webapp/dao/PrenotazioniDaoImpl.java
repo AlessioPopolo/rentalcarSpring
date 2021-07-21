@@ -67,18 +67,15 @@ public class PrenotazioniDaoImpl implements PrenotazioniDao {
 
     @Override
     public boolean checkPrenotazioniSameDate(Long idPrenotazione, Long idAuto, Date start, Date end) {
-        TypedQuery<Prenotazioni> query;
-        query = sessionFactory.getCurrentSession()
-                .createQuery("FROM Prenotazioni WHERE id NOT IN (FROM Prenotazioni where (startdate < '" + start + "' AND enddate > '" + start + "') OR (startdate < '" + end + "' AND enddate > '" + end + "') OR ('" + start + "' <= startdate AND '" + end + "' >= startdate))");
-        TypedQuery<Prenotazioni> query1 = sessionFactory.getCurrentSession()
-                .createQuery("FROM Prenotazioni WHERE ((startdate BETWEEN '" + start + "' AND '" + end + "' ) OR (enddate BETWEEN '" + start + "' AND '" + end + "')) AND approved = true AND automezzo.id = '" + idAuto + "'");
-        List<Prenotazioni> p = query1.getResultList();
+        TypedQuery<Prenotazioni> query = sessionFactory.getCurrentSession()
+                .createQuery("FROM Prenotazioni WHERE ((startdate BETWEEN '" + start + "' AND '" + end + "' ) OR (enddate BETWEEN '" + start + "' AND '" + end + "') OR ('" + start + "' BETWEEN startdate AND enddate)) AND approved = true AND automezzo.id = '" + idAuto + "'");
+        List<Prenotazioni> p = query.getResultList();
         //SE VUOTO È SEMPRE POSSIBILE INSERIRE (CASI ADD E APPROVE O UPDATE SE NON ANCORA APPROVATA)
-        if (query1.getResultList().isEmpty()){
+        if (query.getResultList().isEmpty()){
             return true;
         }
         //SE C'È UNA TUPLA SOLTANTO, CONTROLLO SE È UNA UPDATE SU QUELL'ID
-        if (query1.getResultList().size()==1 && query1.getSingleResult().getId() == idPrenotazione){
+        if (query.getResultList().size()==1 && query.getSingleResult().getId() == idPrenotazione){
             return true;
         }
         //SE NON CADO NEI 2 IF SOPRA, ALLORA FALSE

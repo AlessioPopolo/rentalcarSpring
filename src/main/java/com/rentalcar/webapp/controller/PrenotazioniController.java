@@ -35,11 +35,10 @@ public class PrenotazioniController {
     }
 
     @PostMapping("/prenotazioni/delete/{prenotazioniId}/{userId}")
-    private String deletePrenotazione(@PathVariable("prenotazioniId") String prenotazioneId, @PathVariable("userId") String userId) {
+    private String deletePrenotazione(@PathVariable("prenotazioniId") String prenotazioneId, @PathVariable("userId") String userId, HttpServletRequest request) {
         Long id = Long.parseLong(prenotazioneId);
         prenotazioniService.delete(id);
-        //TODO if admin reindirizza da una parte altrimenti da un'altra
-        return "redirect:/prenotazioni/visualizza/" + userId;
+        return "redirect:" + request.getHeader("Referer");
     }
 
     @PostMapping(value = "/prenotazioni/updatePrenotazione/{prenotazioniId}/{categoria}")
