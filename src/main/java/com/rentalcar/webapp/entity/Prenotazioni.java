@@ -14,11 +14,11 @@ public class Prenotazioni {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "utenteId", nullable = false)
+    @JoinColumn(name = "utente_id", nullable = false)
     private Utente utente;
 
     @ManyToOne
-    @JoinColumn(name = "automezzoId", nullable = false)
+    @JoinColumn(name = "automezzo_id", nullable = false)
     private Automezzo automezzo;
 
     @DateTimeFormat(pattern="yyyy-MM-dd")
